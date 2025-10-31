@@ -1,4 +1,6 @@
 import express from 'express';
+import authMiddleware from '../Middleware/auth.js'; 
+
 import {
   getAllContacts,
   getContactById,
@@ -10,11 +12,11 @@ import {
 
 const router = express.Router();
 
-router.get('/', getAllContacts);
-router.get('/:id', getContactById);
-router.post('/', createContact);
-router.put('/:id', updateContact);
-router.delete('/:id', deleteContact);
-router.delete('/', deleteAllContacts);
+router.get('/', authMiddleware, getAllContacts);
+router.get('/:id', authMiddleware, getContactById);
+router.post('/',authMiddleware, createContact);
+router.put('/:id',authMiddleware, updateContact);
+router.delete('/:id',authMiddleware, deleteContact);
+router.delete('/',authMiddleware, deleteAllContacts);
 
 export default router;
